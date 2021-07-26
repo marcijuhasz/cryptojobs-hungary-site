@@ -77,6 +77,18 @@ story1.save(function (err) {
   // that's it!
 });
 
+const story2 = new Post({
+  title: 'Best sex Royale',
+  content: 'yea just bang this bitch',
+  author: Maddy._id,
+  authorName: Maddy.name
+});
+
+story2.save(function (err) {
+  if (err) return handleError(err);
+  
+  // that's it!
+});
 
 
 app.get("/", function (req, res) {
@@ -97,6 +109,37 @@ app.get("/", function (req, res) {
 
   })
 });
+
+app.post("/",function(req,res,next){
+
+
+  
+  console.log(req.body.girlSearcher);
+
+  Girl.findOne({ igname: req.body.girlSearcher}, function (err, girl) {
+
+    if(girl === null){
+      res.send("No girl found, please go back.");
+    }
+    else{
+
+      let GIRL_ID = girl._id;
+
+      
+
+      res.redirect("/girls/" + GIRL_ID);
+
+    }
+       
+       
+    
+    
+  });
+
+ 
+
+});
+
 
 
 app.get("/add-girl",function(req,res){
@@ -119,11 +162,46 @@ app.post("/add-girl",function(req,res){
 });
 
 
+app.get("/girls/:postId",function(req,res){
+  
+  
+  
+  console.log(req.params.postId);
+
+
+  Girl.findById(req.params.postId, function(err,girl){
+    
+   Post.find({ author: req.params.postId,}, function (err, posts) {
+      console.log(girl.name);
+      
+      res.render("girl",{
+
+        girlName : girl.name, 
+        igName : girl.igname,
+        posts: posts
+
+      });
+    });
+
+  });
+
+
+
+
+  
+  
+});
 
 
 
 
 
+
+app.get("/compose",function(req,res){
+
+  res.render("compose");
+
+});
 
 
 

@@ -1,8 +1,12 @@
 <%- include("partials/header") -%>
 
-
- <div class="container">  
-
+<div class="container">
+    <h1><%= girlName %></h1>
+    <p><%= igName %></p>
+    <form action="/compose">
+        <button class="btn btn-primary" type="submit" name="button">Compose</button>
+        </form>
+    
     <%  posts.forEach(function(post){ %>
 
     
@@ -21,16 +25,7 @@
         <%})%>
 
 
-
-
-</div> 
-
-
-
-
-
-</body>
-
+</div>
 
 
 
