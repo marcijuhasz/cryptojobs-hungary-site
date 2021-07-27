@@ -25,7 +25,7 @@ mongoose.connect(CONNECTION_URL, {
   useUnifiedTopology: true
 });
 
-
+//create db Models
 
 
 const postSchema = {
@@ -34,61 +34,49 @@ const postSchema = {
   content: String,
   author: {
     type: Schema.Types.ObjectId,
-    ref: 'Girl'
+    ref: 'Stack'
   },
   authorName: String
 };
 
 const Post = mongoose.model("Post", postSchema);
 
-const girlSchema = {
+const stackSchema = {
   _id: Schema.Types.ObjectId,
   name: String,
-  igname: String,
   posts: [postSchema]
 };
 
-const Girl = mongoose.model("Girl", girlSchema);
+const Stack = mongoose.model("Stack", stackSchema);
 
 
 
-const Maddy = new Girl({
-  _id: new mongoose.Types.ObjectId(),
-  name: 'Michelle Fleming',
-  igname: '@michelle223'
-});
+// const Blockchain = new Stack({
+//   _id: new mongoose.Types.ObjectId(),
+//   name: 'Ethereum'
+// });
 
 
-Maddy.save(function (err) {
-  if (err) return handleError(err);
-});
+// Blockchain.save(function (err) {
+//   if (err) return handleError(err);
+// });
 
 
-const story1 = new Post({
-  title: 'Best sex Royale',
-  content: 'yea just bang this bitch',
-  author: Maddy._id,
-  authorName: Maddy.name
-});
+// const story1 = new Post({
+//   title: 'Blockchain developer wanted',
+//   content: 'searching for a talented developer who can maintain our blockchain infrastructure.',
+//   author: Blockchain._id,
+//   authorName: Blockchain.name
+// });
 
-story1.save(function (err) {
-  if (err) return handleError(err);
+// story1.save(function (err) {
+//   if (err) return handleError(err);
   
-  // that's it!
-});
+//   // that's it!
+// });
 
-const story2 = new Post({
-  title: 'Best sex Royale',
-  content: 'yea just bang this bitch',
-  author: Maddy._id,
-  authorName: Maddy.name
-});
 
-story2.save(function (err) {
-  if (err) return handleError(err);
-  
-  // that's it!
-});
+//routing
 
 
 app.get("/", function (req, res) {
@@ -114,20 +102,20 @@ app.post("/",function(req,res,next){
 
 
   
-  console.log(req.body.girlSearcher);
+  console.log(req.body.stackSearcher);
 
-  Girl.findOne({ igname: req.body.girlSearcher}, function (err, girl) {
+  Stack.findOne({ name: req.body.stackSearcher}, function (err, stack) {
 
-    if(girl === null){
-      res.send("No girl found, please go back.");
+    if(stack === null){
+      res.send("No stack was found, please go back.");
     }
     else{
 
-      let GIRL_ID = girl._id;
+      let STACK_ID = stack._id;
 
       
 
-      res.redirect("/girls/" + GIRL_ID);
+      res.redirect("/stacks/" + STACK_ID);
 
     }
        
@@ -142,42 +130,49 @@ app.post("/",function(req,res,next){
 
 
 
-app.get("/add-girl",function(req,res){
-  res.render("addGirl");
+app.get("/add-stack",function(req,res){
+  res.render("addStack");
 });
 
 
-app.post("/add-girl",function(req,res){
+app.post("/add-stack",function(req,res){
 
-  const IG_NAME = req.body.igName;
+  const STACK_NAME = req.body.stackName;
 
 
-  console.log(IG_NAME);
+  const CryptoStack = new Stack({
+    _id: new mongoose.Types.ObjectId(),
+    name: STACK_NAME
+  });
+  
+  
+  CryptoStack.save(function (err) {
+    if (err) return handleError(err);
+  });
   
 
 
-  res.redirect("/");
+  res.redirect("/stacks/" + CryptoStack._id);
   
 
 });
 
 
-app.get("/girls/:postId",function(req,res){
+app.get("/stacks/:postId",function(req,res){
   
   
   
   console.log(req.params.postId);
 
 
-  Girl.findById(req.params.postId, function(err,girl){
+  Stack.findById(req.params.postId, function(err,stack){
     
    Post.find({ author: req.params.postId,}, function (err, posts) {
-      console.log(girl.name);
+      console.log(stack.name);
       
-      res.render("girl",{
+      res.render("stack",{
 
-        girlName : girl.name, 
-        igName : girl.igname,
+        stackName : stack.name, 
         posts: posts
 
       });
