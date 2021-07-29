@@ -1,28 +1,48 @@
 <%- include("partials/header") -%>
 
-
-<h1>Compose</h1>
+<div class="container">
+<h1 class="top-header">Compose</h1>
 
 <form action="/compose" method="POST">
-
+   
+    Crypto stacks: <select id="stacks" name='stacks'>
+        
+        <option >choose a stack</option>
+        <%  stacks.forEach(function(stack){ %>
+        <option  value='<%= stack.name %>'><%= stack.name %></option>
+        <%})%>
+        </select>
+       
+    
     <div class="form-group">
+        
         <label for="">Title</label>
         <input class="form-control" type="text" name="title">
 
-        <label for="">Post</label>
+        <label for="">Description</label>
         <textarea class="form-control" name="postBody" id="" cols="30" rows="10"></textarea>
 
         
 
     </div>
 
-    <button class="btn btn-primary" type="submit" name="button">Publish</button>
+    <button id="name" name="name" class="btn btn-primary" type="submit">Publish</button>
 
 
 
 </form>
+</div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<script type="text/javascript" language="javascript">
+$(function() {
+      $("#stacks").change(function(){
+      var stackNmae= $('option:selected', this).attr('value');
+      $('#name').val(stackNmae);
+   });
+});
+</script>
 
 
 

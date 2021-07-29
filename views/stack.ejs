@@ -1,7 +1,7 @@
 <%- include("partials/header") -%>
 
 <div class="container">
-    <h1><%= stackName %></h1>
+    <h1 class="top-header" ><%= stackName %></h1>
     
     <form action="/compose">
         <button class="btn btn-primary" type="submit" name="button">Compose</button>
@@ -16,7 +16,7 @@
               <h5 class="card-title"><%= post.title %></h5>
 
               <p class="card-text"><%= post.content %></p>
-              <a href="/girls/<%=post.author %>" class="card-text" ><%= post.authorName %></a>
+              <a href="/stacks/<%=post.author %>" class="card-text" ><%= post.authorName %></a>
             </div>
           </div>
         

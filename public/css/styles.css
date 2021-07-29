@@ -4,10 +4,77 @@
     
 }
 
+.top-header{
+    margin-top: 80px;
+}
 
+a{
+    color: #7C83FD;
+}
 
 .container{
 
     display: block;
     justify-content: center;
+    
 }
+
+body{
+
+    background-color: #f4f8ff;
+}
+
+footer {
+    
+    padding: 25px 10px 0px 10px;
+     bottom: 0;
+    width: 100%;
+    /* Height of the footer*/ 
+    height: 70px;
+    text-align: center;
+    background-color: #313131;
+    color: white;
+    margin-top: 20px;
+
+
+  }
+
+
+.btn{
+    
+    border-radius: 20px;
+    
+}
+.btn-outline-primary{
+
+    margin-right: 20px;
+    
+}
+
+
+.btn-primary{
+    background-color: #7C83FD;
+    border-color:#7C83FD ;
+    margin-top: 10px;
+}
+
+.btn:hover{
+    background-color: #4D5EFF;
+}
+
+.navbar{
+    overflow: hidden;
+  z-index: 1;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+}
+
+
+
+.card{
+    border-radius: 20px;
+    border: black;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+

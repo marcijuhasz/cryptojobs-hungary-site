@@ -1,0 +1,26 @@
+<%- include("partials/header") -%>
+
+<div class="container">
+    <h1 class="top-header" >Browse stacks</h1>
+    
+    <%  stacks.forEach(function(stack){ %>
+        
+            <button  type="button" class="btn btn-outline-primary" onclick="location.href='/stacks/<%=stack._id %>'"><%= stack.name %></button> 
+        
+            
+        
+        
+        
+        
+        <%})%>
+    
+    
+
+
+</div>
+
+
+
+
+
+<%- include("partials/footer") -%>

@@ -7,6 +7,7 @@ const _ = require("lodash");
 const mongoose = require("mongoose");
 
 
+
 const Schema = mongoose.Schema;
 const app = express();
 
@@ -62,18 +63,7 @@ const Stack = mongoose.model("Stack", stackSchema);
 // });
 
 
-// const story1 = new Post({
-//   title: 'Blockchain developer wanted',
-//   content: 'searching for a talented developer who can maintain our blockchain infrastructure.',
-//   author: Blockchain._id,
-//   authorName: Blockchain.name
-// });
 
-// story1.save(function (err) {
-//   if (err) return handleError(err);
-  
-//   // that's it!
-// });
 
 
 //routing
@@ -107,7 +97,7 @@ app.post("/",function(req,res,next){
   Stack.findOne({ name: req.body.stackSearcher}, function (err, stack) {
 
     if(stack === null){
-      res.send("No stack was found, please go back.");
+      res.render("stackException");
     }
     else{
 
@@ -194,7 +184,82 @@ app.get("/stacks/:postId",function(req,res){
 
 app.get("/compose",function(req,res){
 
-  res.render("compose");
+  Stack.find({}, function (err, stacks) {
+
+
+
+    res.render("compose", {
+
+      stacks: stacks
+
+
+
+    });
+
+  })
+
+});
+
+
+
+app.post("/compose",function(req,res){
+
+  let STACK_NAME = req.body.name;
+
+  let JOB_TITLE = req.body.title;
+
+  let JOB_BODY = req.body.postBody;
+  
+
+  Stack.findOne({ name: STACK_NAME}, function (err, stack) {
+
+    if (stack===null) {
+
+      res.render("stackException");
+
+    } else {
+
+      const jobCompose = new Post({
+        title: JOB_TITLE,
+        content: JOB_BODY,
+        author: stack._id,
+        authorName: stack.name
+      });
+         
+      jobCompose.save(function (err) {
+        if (err) return handleError(err);
+        
+        // that's it!
+      });
+    
+      res.redirect("/");
+    }
+
+    
+    
+  });
+
+  
+  
+});
+
+
+app.get("/browse-stacks",function(req,res){
+
+
+  Stack.find({}, function (err, stacks) {
+
+
+
+    res.render("stacks", {
+
+      stacks: stacks
+
+
+
+    });
+
+  })
 
 });
 
