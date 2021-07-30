@@ -4,6 +4,10 @@
     
 }
 
+p{
+    white-space: pre-wrap;
+}
+
 .top-header{
     margin-top: 80px;
 }
