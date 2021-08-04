@@ -52,18 +52,6 @@ const Stack = mongoose.model("Stack", stackSchema);
 
 
 
-// const Blockchain = new Stack({
-//   _id: new mongoose.Types.ObjectId(),
-//   name: 'Ethereum'
-// });
-
-
-// Blockchain.save(function (err) {
-//   if (err) return handleError(err);
-// });
-
-
-
 
 
 //routing
@@ -97,7 +85,7 @@ app.post("/",function(req,res,next){
 
 
   
-  console.log(req.body.stackSearcher);
+  
 
   Stack.findOne({ name: req.body.stackSearcher}, function (err, stack) {
 
@@ -134,20 +122,31 @@ app.post("/add-stack",function(req,res){
 
   const STACK_NAME = req.body.stackName;
 
-
-  const CryptoStack = new Stack({
-    _id: new mongoose.Types.ObjectId(),
-    name: STACK_NAME
-  });
-  
-  
-  CryptoStack.save(function (err) {
-    if (err) return handleError(err);
-  });
   
 
+  if(STACK_NAME === "" || STACK_NAME === null ){
 
-  res.redirect("/stacks/" + CryptoStack._id);
+    res.render("stackException");
+  }
+  else{
+
+    const CryptoStack = new Stack({
+      _id: new mongoose.Types.ObjectId(),
+      name: STACK_NAME
+    });
+    
+    
+    CryptoStack.save(function (err) {
+      if (err) return handleError(err);
+    });
+    
+  
+  
+    res.redirect("/stacks/" + CryptoStack._id);
+
+  }
+
+  
   
 
 });
@@ -157,13 +156,13 @@ app.get("/stacks/:postId",function(req,res){
   
   
   
-  console.log(req.params.postId);
+  
 
 
   Stack.findById(req.params.postId, function(err,stack){
     
    Post.find({ author: req.params.postId,}, function (err, posts) {
-      console.log(stack.name);
+      
       
       res.render("stack",{
 
@@ -249,24 +248,6 @@ app.post("/compose",function(req,res){
 });
 
 
-app.get("/browse-stacks",function(req,res){
-
-
-  Stack.find({}, function (err, stacks) {
-
-
-
-    res.render("stacks", {
-
-      stacks: stacks
-
-
-
-    });
-
-  })
-
-});
 
 
 
