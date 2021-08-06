@@ -67,12 +67,12 @@ app.get("/", function (req, res) {
 
   Post.find({}, function (err, posts) {
 
-    Stack.find({}, function (err, stacks)  {
+    Stack.find({}, function (err, stackie)  {
 
       res.render("home", {
 
         posts: posts,
-        stacks : stacks
+        stacks : stackie
   
   
       });
