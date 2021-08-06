@@ -65,25 +65,27 @@ const Stack = mongoose.model("Stack", stackSchema);
 app.get("/", function (req, res) {
 
 
+  Stack.find({}, (err,stacks) =>{
 
-  Post.find({}, function (err, posts) {
-
-    Stack.find({}, function (err, stacks)  {
+    Post.find({}, (err,posts)=>{
 
       res.render("home", {
 
-        posts: posts,
-        stacks : stacks
-  
+        
+        stacks : stacks,
+        posts: posts
   
       });
 
 
-    })
+    });
 
-    
 
-  })
+  });
+
+
+
+  
 });
 
 app.post("/",function(req,res,next){
