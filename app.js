@@ -67,7 +67,7 @@ app.get("/", function (req, res) {
 
   Post.find({}, function (err, posts) {
 
-    Stack.find({},(err,stacks) =>  {
+    Stack.find({}, function (err, stacks)  {
 
       res.render("home", {
 
