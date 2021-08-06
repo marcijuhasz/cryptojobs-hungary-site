@@ -18,11 +18,12 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-const Schema = mongoose.Schema;
+
 
 
 //initialize database
 
+const Schema = mongoose.Schema;
 const CONNECTION_URL = 'mongodb+srv://chicken-admin:chicken123@cluster0.okhyc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 mongoose.connect(CONNECTION_URL, {
@@ -67,19 +68,19 @@ app.get("/", function (req, res) {
 
   Post.find({}, function (err, posts) {
 
-    
+    Stack.find({}, function (err, stacks)  {
 
       res.render("home", {
 
         posts: posts,
-        
+        stacks : stacks
   
   
       });
 
 
-    
-      
+    })
+
     
 
   })
