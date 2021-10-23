@@ -62,7 +62,7 @@ const Stack = mongoose.model("Stack", stackSchema);
 //routing
 
 
-app.get("/", function (req, res) {
+app.get("/", (req, res) => {
 
 
   Stack.find({}, (err,stacks) =>{
@@ -88,7 +88,7 @@ app.get("/", function (req, res) {
   
 });
 
-app.post("/",function(req,res,next){
+app.post("/",(req,res,next) =>{
 
 
   
@@ -120,12 +120,12 @@ app.post("/",function(req,res,next){
 
 
 
-app.get("/add-stack",function(req,res){
+app.get("/add-stack",(req,res) =>{
   res.render("addStack");
 });
 
 
-app.post("/add-stack",function(req,res){
+app.post("/add-stack",(req,res) =>{
 
   const STACK_NAME = req.body.stackName;
 
@@ -159,7 +159,7 @@ app.post("/add-stack",function(req,res){
 });
 
 
-app.get("/stacks/:postId",function(req,res){
+app.get("/stacks/:postId",(req,res) =>{
   
   
   
@@ -193,9 +193,9 @@ app.get("/stacks/:postId",function(req,res){
 
 
 
-app.get("/compose",function(req,res){
+app.get("/compose",(req,res)=>{
 
-  Stack.find({}, function (err, stacks) {
+  Stack.find({}, (err, stacks)=> {
 
 
 
@@ -213,7 +213,7 @@ app.get("/compose",function(req,res){
 
 
 
-app.post("/compose",function(req,res){
+app.post("/compose",(req,res)=>{
 
   let STACK_NAME = req.body.name;
 
@@ -258,6 +258,6 @@ app.post("/compose",function(req,res){
 
 
 
-app.listen(process.env.PORT || 3000, function () {
+app.listen(process.env.PORT || 3000,  ()=> {
   console.log("Server started successfully.");
 });
